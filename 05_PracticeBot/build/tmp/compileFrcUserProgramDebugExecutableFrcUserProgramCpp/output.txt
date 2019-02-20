@@ -1,0 +1,4 @@
+See file:///C:/Users/team%2041%20robotics/Documents/GitHub/2019_Deep_Space/05_PracticeBot/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramDebugExecutableFrcUserProgramCpp.
+compiling Arm.cpp successful.
+
+Finished compileFrcUserProgramDebugExecutableFrcUserProgramCpp, see full log file:///C:/Users/team%2041%20robotics/Documents/GitHub/2019_Deep_Space/05_PracticeBot/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt.

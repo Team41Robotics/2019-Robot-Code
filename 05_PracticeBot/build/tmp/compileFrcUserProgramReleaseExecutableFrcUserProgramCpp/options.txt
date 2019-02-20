@@ -1,0 +1,58 @@
+-x
+c++
+-c
+-std=c++14
+-Wformat=2
+-pedantic
+-Wno-psabi
+-g
+-Wno-unused-parameter
+-Wno-error=deprecated-declarations
+-fPIC
+-rdynamic
+-pthread
+-O2
+-I
+"C:\\Users\\team 41 robotics\\Documents\\GitHub\\2019_Deep_Space\\05_PracticeBot\\src\\main\\include"
+-I
+"C:\\Users\\team 41 robotics\\Documents\\GitHub\\2019_Deep_Space\\05_PracticeBot\\build\\tmp\\expandedArchives\\wpilibc-cpp-2019.3.1-headers.zip_b81507b0c50c581f7502538d67c4b01b"
+-I
+"C:\\Users\\team 41 robotics\\Documents\\GitHub\\2019_Deep_Space\\05_PracticeBot\\build\\tmp\\expandedArchives\\hal-cpp-2019.3.1-headers.zip_b5e48025237aeab46db504a7b2f66655"
+-I
+"C:\\Users\\team 41 robotics\\Documents\\GitHub\\2019_Deep_Space\\05_PracticeBot\\build\\tmp\\expandedArchives\\wpiutil-cpp-2019.3.1-headers.zip_5e342f497d78cde8042c25fea7a66506"
+-I
+"C:\\Users\\team 41 robotics\\Documents\\GitHub\\2019_Deep_Space\\05_PracticeBot\\build\\tmp\\expandedArchives\\ntcore-cpp-2019.3.1-headers.zip_9555d7c48fd82baf566f02717a6c3cb0"
+-I
+"C:\\Users\\team 41 robotics\\Documents\\GitHub\\2019_Deep_Space\\05_PracticeBot\\build\\tmp\\expandedArchives\\cscore-cpp-2019.3.1-headers.zip_6f6b3f86ef5e8708aac28c5ba02696ca"
+-I
+"C:\\Users\\team 41 robotics\\Documents\\GitHub\\2019_Deep_Space\\05_PracticeBot\\build\\tmp\\expandedArchives\\cameraserver-cpp-2019.3.1-headers.zip_992d6c67f4984f018ec363e9353431cb"
+-I
+"C:\\Users\\team 41 robotics\\Documents\\GitHub\\2019_Deep_Space\\05_PracticeBot\\build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-headers.zip_ed19d56be47d37c8193b8f0377a9cfe6"
+-I
+"C:\\Users\\team 41 robotics\\Documents\\GitHub\\2019_Deep_Space\\05_PracticeBot\\build\\tmp\\expandedArchives\\chipobject-2019.12.1-headers.zip_45012665afb78c4c4816a3a35e8fe8aa"
+-I
+"C:\\Users\\team 41 robotics\\Documents\\GitHub\\2019_Deep_Space\\05_PracticeBot\\build\\tmp\\expandedArchives\\netcomm-2019.12.1-headers.zip_97d07b8af9f28e0504c6dc239ac1f176"
+-I
+"C:\\Users\\team 41 robotics\\Documents\\GitHub\\2019_Deep_Space\\05_PracticeBot\\build\\tmp\\expandedArchives\\navx-cpp-3.1.344-headers.zip_744b022e6074b8136dc4cb47e25c93fd"
+-I
+"C:\\Users\\team 41 robotics\\Documents\\GitHub\\2019_Deep_Space\\05_PracticeBot\\build\\tmp\\expandedArchives\\wpiapi-cpp-5.12.1-headers.zip_97f59bce4d16b98c31d785272d2cbf90"
+-I
+"C:\\Users\\team 41 robotics\\Documents\\GitHub\\2019_Deep_Space\\05_PracticeBot\\build\\tmp\\expandedArchives\\api-cpp-5.12.1-headers.zip_e986b26473fb15f3bc8719ff3984c310"
+-I
+"C:\\Users\\team 41 robotics\\Documents\\GitHub\\2019_Deep_Space\\05_PracticeBot\\build\\tmp\\expandedArchives\\cci-5.12.1-headers.zip_ac01d991886b7cad435836f8b648e3f3"
+-I
+"C:\\Users\\team 41 robotics\\Documents\\GitHub\\2019_Deep_Space\\05_PracticeBot\\build\\tmp\\expandedArchives\\core-5.12.1-headers.zip_a0ce3d09c679775751593f941c53f00d"
+-I
+"C:\\Users\\team 41 robotics\\Documents\\GitHub\\2019_Deep_Space\\05_PracticeBot\\build\\tmp\\expandedArchives\\SparkMax-cpp-1.0.24-headers.zip_315b3de7e270a0c0d9dce78c6b504185"
+-isystem
+c:\\users\\public\\frc2019\\roborio\\bin\\..\\arm-frc2019-linux-gnueabi\\usr\\lib\\gcc\\arm-frc2019-linux-gnueabi\\6.3.0\\include
+-isystem
+c:\\users\\public\\frc2019\\roborio\\bin\\..\\arm-frc2019-linux-gnueabi\\usr\\lib\\gcc\\arm-frc2019-linux-gnueabi\\6.3.0\\include-fixed
+-isystem
+c:\\users\\public\\frc2019\\roborio\\bin\\..\\arm-frc2019-linux-gnueabi\\usr\\include\\c++\\6.3.0
+-isystem
+c:\\users\\public\\frc2019\\roborio\\bin\\..\\arm-frc2019-linux-gnueabi\\usr\\include\\c++\\6.3.0\\arm-frc2019-linux-gnueabi
+-isystem
+c:\\users\\public\\frc2019\\roborio\\bin\\..\\arm-frc2019-linux-gnueabi\\usr\\include\\c++\\6.3.0\\backward
+-isystem
+c:\\users\\public\\frc2019\\roborio\\bin\\..\\arm-frc2019-linux-gnueabi\\usr\\include

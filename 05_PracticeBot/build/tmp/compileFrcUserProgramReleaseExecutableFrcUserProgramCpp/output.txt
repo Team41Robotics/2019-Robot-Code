@@ -1,0 +1,38 @@
+See file:///C:/Users/team%2041%20robotics/Documents/GitHub/2019_Deep_Space/05_PracticeBot/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramReleaseExecutableFrcUserProgramCpp.
+compiling Intake.cpp successful.
+
+compiling Arm.cpp successful.
+
+compiling Robot.cpp successful.
+In file included from C:\Users\team 41 robotics\Documents\GitHub\2019_Deep_Space\05_PracticeBot\build\tmp\expandedArchives\wpilibc-cpp-2019.3.1-headers.zip_b81507b0c50c581f7502538d67c4b01b/frc/IterativeRobotBase.h:10:0,
+                 from C:\Users\team 41 robotics\Documents\GitHub\2019_Deep_Space\05_PracticeBot\build\tmp\expandedArchives\wpilibc-cpp-2019.3.1-headers.zip_b81507b0c50c581f7502538d67c4b01b/frc/IterativeRobot.h:10,
+                 from C:\Users\team 41 robotics\Documents\GitHub\2019_Deep_Space\05_PracticeBot\build\tmp\expandedArchives\wpilibc-cpp-2019.3.1-headers.zip_b81507b0c50c581f7502538d67c4b01b/frc/WPILib.h:40,
+                 from C:\Users\team 41 robotics\Documents\GitHub\2019_Deep_Space\05_PracticeBot\src\main\include/Robot.h:12,
+                 from C:\Users\team 41 robotics\Documents\GitHub\2019_Deep_Space\05_PracticeBot\src\main\cpp\Robot.cpp:8:
+C:\Users\team 41 robotics\Documents\GitHub\2019_Deep_Space\05_PracticeBot\src\main\cpp\Robot.cpp: In function 'int main()':
+C:\Users\team 41 robotics\Documents\GitHub\2019_Deep_Space\05_PracticeBot\build\tmp\expandedArchives\wpilibc-cpp-2019.3.1-headers.zip_b81507b0c50c581f7502538d67c4b01b/frc/RobotBase.h:39:23: warning: 'int StartRobotClassImpl()' is deprecated: Call frc::StartRobot<Robot>() in your own main() instead of using the START_ROBOT_CLASS(Robot) macro. [-Wdeprecated-declarations]
+   int main() { return StartRobotClassImpl(); }
+                       ^
+C:\Users\team 41 robotics\Documents\GitHub\2019_Deep_Space\05_PracticeBot\src\main\cpp\Robot.cpp:80:1: note: in expansion of macro 'START_ROBOT_CLASS'
+ START_ROBOT_CLASS(Robot)
+ ^~~~~~~~~~~~~~~~~
+C:\Users\team 41 robotics\Documents\GitHub\2019_Deep_Space\05_PracticeBot\build\tmp\expandedArchives\wpilibc-cpp-2019.3.1-headers.zip_b81507b0c50c581f7502538d67c4b01b/frc/RobotBase.h:38:7: note: declared here
+   int StartRobotClassImpl() { return frc::StartRobot<_ClassName_>(); } \
+       ^
+C:\Users\team 41 robotics\Documents\GitHub\2019_Deep_Space\05_PracticeBot\src\main\cpp\Robot.cpp:80:1: note: in expansion of macro 'START_ROBOT_CLASS'
+ START_ROBOT_CLASS(Robot)
+ ^~~~~~~~~~~~~~~~~
+C:\Users\team 41 robotics\Documents\GitHub\2019_Deep_Space\05_PracticeBot\build\tmp\expandedArchives\wpilibc-cpp-2019.3.1-headers.zip_b81507b0c50c581f7502538d67c4b01b/frc/RobotBase.h:39:43: warning: 'int StartRobotClassImpl()' is deprecated: Call frc::StartRobot<Robot>() in your own main() instead of using the START_ROBOT_CLASS(Robot) macro. [-Wdeprecated-declarations]
+   int main() { return StartRobotClassImpl(); }
+                                           ^
+C:\Users\team 41 robotics\Documents\GitHub\2019_Deep_Space\05_PracticeBot\src\main\cpp\Robot.cpp:80:1: note: in expansion of macro 'START_ROBOT_CLASS'
+ START_ROBOT_CLASS(Robot)
+ ^~~~~~~~~~~~~~~~~
+C:\Users\team 41 robotics\Documents\GitHub\2019_Deep_Space\05_PracticeBot\build\tmp\expandedArchives\wpilibc-cpp-2019.3.1-headers.zip_b81507b0c50c581f7502538d67c4b01b/frc/RobotBase.h:38:7: note: declared here
+   int StartRobotClassImpl() { return frc::StartRobot<_ClassName_>(); } \
+       ^
+C:\Users\team 41 robotics\Documents\GitHub\2019_Deep_Space\05_PracticeBot\src\main\cpp\Robot.cpp:80:1: note: in expansion of macro 'START_ROBOT_CLASS'
+ START_ROBOT_CLASS(Robot)
+ ^~~~~~~~~~~~~~~~~
+
+Finished compileFrcUserProgramReleaseExecutableFrcUserProgramCpp, see full log file:///C:/Users/team%2041%20robotics/Documents/GitHub/2019_Deep_Space/05_PracticeBot/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt.
