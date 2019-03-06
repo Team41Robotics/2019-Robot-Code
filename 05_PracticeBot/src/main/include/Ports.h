@@ -10,12 +10,12 @@ namespace PORTS {
         SPARK_RF = 4,
         SPARK_RB = 2,
         SOL_SHIFT_PCM = 1,
-        SOL_SHIFT_IN = 0,
-        SOL_SHIFT_OUT = 1,
+        SOL_SHIFT_IN = 6,
+        SOL_SHIFT_OUT = 7,
         // Claw
         SOL_CLAW_PCM = 1,
-        SOL_CLAW_IN = 7,
-        SOL_CLAW_OUT = 6,
+        SOL_CLAW_IN = 7, // ???
+        SOL_CLAW_OUT = 6, // ???
         SOL_SHOOT_PCM = 0,
         SOL_SHOOT_IN = 1,
         SOL_SHOOT_OUT = 0,

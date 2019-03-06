@@ -27,8 +27,5 @@ class Robot : public frc::IterativeRobot {
   frc::SendableChooser<std::string> m_chooser;
   const std::string kAutoNameDefault = "Default";
   const std::string kAutoNameCustom = "My Auto";
-  frc::Joystick *leftJoy, *rightJoy;
-  frc::Compressor *comp;
-  frc::DoubleSolenoid *sol;
   std::string m_autoSelected;
 };

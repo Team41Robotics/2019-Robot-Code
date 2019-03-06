@@ -22,8 +22,20 @@ Driving::Driving() {
 	encRF = new rev::CANEncoder(sparkRF->GetEncoder());
 	encRB = new rev::CANEncoder(sparkRB->GetEncoder());
 
+	pidLF = new rev::CANPIDController((*sparkLF));
+	pidLB = new rev::CANPIDController((*sparkLB));
+	pidRF = new rev::CANPIDController((*sparkRF));
+	pidRB = new rev::CANPIDController((*sparkRB));
+
+	SetPIDConstants(pidLF);
+	SetPIDConstants(pidLB);
+	SetPIDConstants(pidRF);
+	SetPIDConstants(pidRB);
+
 	// Init gyro
-	//navX = new AHRS(SerialPort::Port::kUSB1);
+	navX = new AHRS(SerialPort::Port::kUSB1);
+	prev = navX->GetAngle();
+
 
 	comp = new Compressor(PORTS::COMPRESSOR);
 	comp->Start();
@@ -77,12 +89,13 @@ void Driving::Drive(double left, double right){
 	double velRight = -encRF->GetVelocity();
 	double linVel = (velLeft + velRight) / 2.0;
 	double angVel = (velRight - velLeft) / WHEEL_BASE;
-	// SmartDashboard::PutNumber("linear velocity encoder", linVel);
-	// SmartDashboard::PutNumber("angular velocity encoder", angVel);
-	// SmartDashboard::PutNumber("linear velocity gyro", navX->GetVelocityX());
-	// double current = navX->GetAngle();
-	// SmartDashboard::PutNumber("angular velocity gyro", current-prev);
-	// prev = current;
+	SmartDashboard::PutNumber("linear_velocity", linVel);
+	SmartDashboard::PutNumber("angular_velocity", angVel);
+	// SmartDashboard::PutNumber("linear_velocity_gyro", navX->GetVelocityX());
+	double current = navX->GetAngle();
+	SmartDashboard::PutNumber("gyro", current);
+	SmartDashboard::PutNumber("angular_velocity_gyro", current-prev);
+	prev = current;
 }
 
 void Driving::Shift(int g){
@@ -118,3 +131,25 @@ void Driving::AutoShift(){
 
 	SmartDashboard::PutNumber("angle",navX->GetAngle());
 } 
+
+void Driving::SetPIDConstants(rev::CANPIDController *p){
+	// Default PID coefficients
+	p->SetP(5e-5);
+	p->SetI(1e-6);
+	p->SetD(0);
+	p->SetIZone(0);
+	p->SetFF(0.000156);
+	p->SetOutputRange(-1, 1);
+}
+
+void Driving::VelocityPID(double linear, double angular){ // speed in m/s and rad/s
+	double ratio = (gear == GEAR::HIGH) ? GEAR_RATIO_HIGH : GEAR_RATIO_LOW;
+	linear *= 1.0 / (2 * PI * WHEEL_RADIUS) * ratio * 60.0; // Convert robot m/s to motor rpm
+	angular *= 1.0 / (2 * PI) * ratio * 60.0; // Convert robot rad/s to motor rpm
+	double left_target = linear - angular * WHEEL_BASE / 2.0;
+	double right_target = linear + angular * WHEEL_BASE / 2.0;
+	pidLF->SetReference(left_target, rev::ControlType::kVelocity);
+	pidLB->SetReference(left_target, rev::ControlType::kVelocity);
+	pidRF->SetReference(right_target, rev::ControlType::kVelocity);
+	pidRB->SetReference(right_target, rev::ControlType::kVelocity);
+}

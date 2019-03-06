@@ -12,6 +12,7 @@
 #include <rev/CANSparkMax.h>
 #include <rev/CANSparkMaxLowLevel.h>
 #include <rev/CANEncoder.h>
+#include <rev/CANPIDController.h>
 #include <AHRS.h>
 
 #define kBrushless rev::CANSparkMaxLowLevel::MotorType::kBrushless
@@ -20,7 +21,12 @@
 #define VEL_LOW_THRESHOLD 1.00
 #define VEL_JOY_THRESHOLD 1.00
 
-#define WHEEL_BASE 40
+#define WHEEL_BASE 0.6858
+#define WHEEL_RADIUS 0.1
+#define GEAR_RATIO_HIGH 12.6176
+#define GEAR_RATIO_LOW 32.5000
+
+#define PI 3.141596
 
 using namespace frc;
 
@@ -44,6 +50,9 @@ class Driving
 	double leftStick = 0, rightStick = 0;
 	double prev;
 	bool gearButtonPressed, shiftUp;
+	rev::CANPIDController *pidRF, *pidRB, *pidLF, *pidLB;
+	void VelocityPID(double linear, double angular);
+	void SetPIDConstants(rev::CANPIDController *p);
 };
 
 #endif /* SRC_DRIVING_H_ */

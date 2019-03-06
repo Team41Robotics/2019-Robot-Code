@@ -15,12 +15,6 @@ void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-  leftJoy = new frc::Joystick(1);
-	rightJoy = new frc::Joystick(2);
-	//drv = new Driving();
-	comp = new frc::Compressor(0);
-	comp->Start();
-	sol = new frc::DoubleSolenoid{0,1};
 }
 
 /**
@@ -68,13 +62,7 @@ void Robot::AutonomousPeriodic() {
 void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic() {
-  if (leftJoy->GetRawButton(1)){ // Shift down
-		sol->Set(frc::DoubleSolenoid::Value::kReverse);
-	} else if (rightJoy->GetRawButton(1)){ // Shift up
-		sol->Set(frc::DoubleSolenoid::Value::kForward);
-	} else { // Off
-		sol->Set(frc::DoubleSolenoid::Value::kOff);
-	}
+  
 }
 
 void Robot::TestPeriodic() {}

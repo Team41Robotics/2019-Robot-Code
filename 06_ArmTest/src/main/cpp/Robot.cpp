@@ -20,39 +20,13 @@ void Robot::RobotInit() {
   joy0 = new frc::Joystick(2);
   joy1 = new frc::Joystick(1);
   // Arm
-  arm0 = new TalonSRX(7);
-  arm1 = new TalonSRX(3);
-  SmartDashboard::PutNumber("arm speed",0.5);
-  // enc7 = new Encoder(0, 1, false, Encoder::EncodingType::k4X);
-  // enc7->Reset();
-  // enc3 = new Encoder(0, 1, false, Encoder::EncodingType::k4X);
-  // enc3->Reset();
+  arm0 = new TalonSRX(10);
+  arm1 = new TalonSRX(5);
 
-  // Lift
-  lift0 = new TalonSRX(10);
-  lift1 = new TalonSRX(5);
-  liftTopLimit = new DigitalInput(0);
-  //SmartDashboard::PutNumber("lift speed",0.5);
-  // enc10 = new Encoder(0, 1, false, Encoder::EncodingType::k4X);
-  // enc10->Reset();
-  // enc1 = new Encoder(0, 1, false, Encoder::EncodingType::k4X);
-  // enc1->Reset();
-
-/*
-  // Intake
   intake0 = new TalonSRX(11);
   intake1 = new TalonSRX(1);
-  SmartDashboard::PutNumber("intake rotation speed", 0.5);
-  intake = new TalonSRX(2);
 
-  comp = new Compressor(0);
-  comp->Start();
-
-  shootSol = new DoubleSolenoid(0,0,1);
-  clawSol = new DoubleSolenoid(1,6,7); */
-
-  // Vision assist
-  lift_servo = new Servo(1);
+  ultra = new AnalogInput(0);
 }
 
 /**
@@ -63,7 +37,15 @@ void Robot::RobotInit() {
  * <p> This runs after the mode specific periodic functions, but before
  * LiveWindow and SmartDashboard integrated updating.
  */
-void Robot::RobotPeriodic() {}
+void Robot::RobotPeriodic() {
+  double voltage_source = 5.0;
+  double scaling = voltage_source / 1024.0; // Volts per 5 mm
+  double dist = 5 * (ultra->GetValue() / scaling); // Distance in mm
+  dist *= 0.0393701; // Distance in inches
+  SmartDashboard::PutNumber("distance", dist);
+  SmartDashboard::PutNumber("ultra", ultra->GetValue());
+  SmartDashboard::PutNumber("ultra scaled", ultra->GetValue() * 5.0 / 1024.0 / 1000.0 * 39.37);
+}
 
 /**
  * This autonomous (along with the chooser code above) shows how to select
@@ -106,75 +88,9 @@ void Robot::TeleopInit() {
 }
 
 void Robot::TeleopPeriodic() {
-
-  //test limit switches
-  SmartDashboard::PutNumber("lift top limit", liftTopLimit->Get());
-	//SmartDashboard::PutNumber("lift bot limit", liftBottomLimit->Get());
-	//SmartDashboard::PutNumber("arm top limit", armBottomLimit->Get());
-	//SmartDashboard::PutNumber("arm bot limit", armTopLimit->Get());
-
-  //SmartDashboard::PutNumber("joystick axis value", joy0->GetRawAxis(1));
-  // Arm
-  double arm_speed = SmartDashboard::GetNumber("arm speed",0.0);
-  /*if (joy0->GetRawButton(3)){ // Up
-    arm_speed *= -1;
-  } else if (joy0->GetRawButton(2)){ // Down
-    arm_speed *= 0.5;
-  } else {
-    arm_speed = -0.1;
-  }*/
-  arm_speed = joy0->GetRawAxis(0);
-
-  //if (joy0->GetRawButton(4)) arm_speed = -0.1;
-  // arm0->Set(kPercentOutput, arm_speed);
-  // arm1->Set(kPercentOutput, arm_speed);
-  // SmartDashboard::PutNumber("encoder 7", enc7->Get());
-  // SmartDashboard::PutNumber("encoder 3", enc3->Get());
   
-  // Lift
-  double lift_speed = SmartDashboard::GetNumber("lift speed", 0.0);
-  /*if (joy0->GetRawButton(11)){ // Up
-    lift_speed *= -1;
-  } else if (joy0->GetRawButton(10)){ // Down
-    lift_speed *= 0.25;
-  } else {
-    lift_speed = 0;
-  }*/
-  lift_speed = joy0->GetRawAxis(1);
-  lift0->Set(kPercentOutput, lift_speed);
-  lift1->Set(kPercentOutput, lift_speed);
-
-  /*
-  // Intake
-  double intake_speed = SmartDashboard::GetNumber("intake rotation speed", 0.0);
-  if (joy0->GetRawButton(6)){ // Up
-    intake_speed *= 1;
-  } else if (joy0->GetRawButton(7)){ // Down
-    intake_speed *= -1;
-  } else {
-    intake_speed = 0;
-  }
-  intake0->Set(kPercentOutput, intake_speed);
-  intake1->Set(kPercentOutput, intake_speed);
-
-  //if (joy0->GetRawButton(5)) intake->Set(kPercentOutput, 1.0);
-  //else if (joy0->GetRawButton(4)) intake->Set(kPercentOutput, -1.0);
-  //else intake->Set(kPercentOutput, 0.0);
-
-  // Shoot
-  if (joy0->GetRawButton(9)) shootSol->Set(DoubleSolenoid::Value::kForward);
-  else if (joy0->GetRawButton(8)) shootSol->Set(DoubleSolenoid::Value::kReverse);
-  else shootSol->Set(DoubleSolenoid::Value::kOff);
-
-  // Open claw
-  if (joy0->GetRawButton(5)) clawSol->Set(DoubleSolenoid::Value::kForward);
-  else if (joy0->GetRawButton(4)) clawSol->Set(DoubleSolenoid::Value::kReverse);
-  else clawSol->Set(DoubleSolenoid::Value::kOff); 
-  intake0->Set(kPercentOutput, joy0->GetRawAxis(1));
-  intake1->Set(kPercentOutput, joy0->GetRawAxis(1));*/
-
-  if (joy1->GetRawButton(1)) lift_servo->Set(0.36);
-  else lift_servo->Set(0);
+  // arm0->Set(kPercentOutput, -joy0->GetRawAxis(1));
+  // arm1->Set(kPercentOutput, -joy1->GetRawAxis(1));
 }
 
 void Robot::TestPeriodic() {}
