@@ -18,15 +18,17 @@ void Robot::RobotInit() {
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
   joy0 = new frc::Joystick(2);
-  joy1 = new frc::Joystick(1);
-  // Arm
-  arm0 = new TalonSRX(10);
-  arm1 = new TalonSRX(5);
+  //joy1 = new frc::Joystick(1);
 
-  intake0 = new TalonSRX(11);
-  intake1 = new TalonSRX(1);
+  swivel = new Servo(0);
+  // Arm
+  
+  arm0 = new TalonSRX(11);
+  arm1 = new TalonSRX(1);
 
   ultra = new AnalogInput(0);
+
+  //CAMERA SERVO
 }
 
 /**
@@ -38,6 +40,8 @@ void Robot::RobotInit() {
  * LiveWindow and SmartDashboard integrated updating.
  */
 void Robot::RobotPeriodic() {
+
+  /*
   double voltage_source = 5.0;
   double scaling = voltage_source / 1024.0; // Volts per 5 mm
   double dist = 5 * (ultra->GetValue() / scaling); // Distance in mm
@@ -45,6 +49,7 @@ void Robot::RobotPeriodic() {
   SmartDashboard::PutNumber("distance", dist);
   SmartDashboard::PutNumber("ultra", ultra->GetValue());
   SmartDashboard::PutNumber("ultra scaled", ultra->GetValue() * 5.0 / 1024.0 / 1000.0 * 39.37);
+  */
 }
 
 /**
@@ -81,16 +86,18 @@ void Robot::AutonomousPeriodic() {
 
 void Robot::TeleopInit() {
 //	liftBottomLimit = new DigitalInput(PORTS::LIFT_BOTTOM_LIMIT);
-//	armTopLimit = new DigitalInput(PORTS::ARM_TOP_LIMIT);
+	liftTopLimit = new DigitalInput(3);
 //	armBottomLimit = new DigitalInput(PORTS::ARM_BOTTOM_LIMIT);
 
   // comp->Start();
 }
 
 void Robot::TeleopPeriodic() {
-  
-  // arm0->Set(kPercentOutput, -joy0->GetRawAxis(1));
-  // arm1->Set(kPercentOutput, -joy1->GetRawAxis(1));
+  // SmartDashboard::PutNumber("servo", -joy0->GetRawAxis(3));
+  //swivel->Set(-joy0->GetRawAxis(1)); //normalize
+  arm0->Set(kPercentOutput, -joy0->GetRawAxis(1));
+  arm1->Set(kPercentOutput, -joy0->GetRawAxis(1));
+  SmartDashboard::PutNumber("limit", liftTopLimit->Get());
 }
 
 void Robot::TestPeriodic() {}

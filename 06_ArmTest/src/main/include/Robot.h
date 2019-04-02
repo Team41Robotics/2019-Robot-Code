@@ -35,7 +35,7 @@ class Robot : public frc::TimedRobot {
   std::string m_autoSelected;
   TalonSRX *arm0, *arm1, *lift0, *lift1, *intake0, *intake1, *intake;
   DigitalInput *liftTopLimit;
-  Servo *lift_servo;
+	Servo *swivel;
   AnalogInput *ultra;
 
   // Encoder *enc7, *enc3;
