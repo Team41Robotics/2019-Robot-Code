@@ -31,6 +31,10 @@ void Robot::RobotInit() {
 	climb = new Climbing(drv);
 }
 
+void Robot::RobotPeriodic(){
+	climb->PressureSense();
+}
+
 /**
  * Called at the beginning of the autonomous period
  * 

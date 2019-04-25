@@ -20,11 +20,13 @@ class Climbing {
   public:
     Climbing(Driving *drive);
     void ControllerMove(Joystick *buttonBoard);
+    void PressureSense();
   private:
     DoubleSolenoid *sol0, *sol1;
     Driving *drv;
     Timer timer;
     AnalogInput *ultra;
+    AnalogInput *pressureSensor;
     bool timing;
     void Extend(bool ext);
     double GetDistance();

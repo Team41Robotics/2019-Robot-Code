@@ -70,7 +70,7 @@ void Arm::Reset(){
  * Sets the arm and lift using controller input
  */
 void Arm::ControllerMove(Joystick *rightJoy, Joystick *buttonBoard) {
-	if (buttonBoard->GetRawButton(BUTTONS::ZERO_IT)){
+	if (buttonBoard->GetRawButton(BUTTONS::ZERO_IT) || buttonBoard->GetPOV(0)/45 == 7){
 		// Starting config
 		armZeroed = false;
 		liftZeroed = false;
@@ -154,13 +154,13 @@ void Arm::ControllerMove(Joystick *rightJoy, Joystick *buttonBoard) {
 				case 1:
 					BothPID(ARM_HEIGHTS::HATCH_LOAD, LIFT_HEIGHTS::HATCH_LOAD, fine); break;
 				case 2:
-					BothPID(ARM_HEIGHTS::HATCH_1, LIFT_HEIGHTS::HATCH_1, fine); break;
+					BothPID(ARM_HEIGHTS::HATCH_1, LIFT_HEIGHTS::HATCH_1, false); break;
 				case 3:
-					BothPID(ARM_HEIGHTS::HATCH_2, LIFT_HEIGHTS::HATCH_2, fine); break;
+					BothPID(ARM_HEIGHTS::HATCH_2, LIFT_HEIGHTS::HATCH_2, false); break;
 				case 4:
-					BothPID(ARM_HEIGHTS::HATCH_3, LIFT_HEIGHTS::HATCH_3, fine); break;
+					BothPID(ARM_HEIGHTS::HATCH_3, LIFT_HEIGHTS::HATCH_3, false); break;
 				default:
-					LiftSet(0.0);
+					LiftSet(0.075);
 			}
 		}
 	}
@@ -222,7 +222,7 @@ bool Arm::ArmPIDFine(){
 	double kFF = -0.1;
 
 	double offset = SmartDashboard::GetNumber("vertical_offset",0.0);
-	double goal = 0.029; // Target vision offset
+	double goal = 0.0335; // Target vision offset
 	double error = goal - offset; // in meters
 	SmartDashboard::PutBoolean("Fine Tune?", true);
 	SmartDashboard::PutNumber("fine tune arm PID error", error);
@@ -282,7 +282,7 @@ bool Arm::LiftPID(double goal, bool fine) {
 
 	double derivative = error - lift_prevError;
 
-	double speed = error * LIFT_KP + lift_integral * LIFT_KI + derivative * LIFT_KD;
+	double speed = error * LIFT_KP + lift_integral * LIFT_KI + derivative * LIFT_KD + .05;
 	lift_prevError = error;
 	if (speed > 0.8) speed = 0.8;
 	if (speed < -0.5) speed = -0.5;

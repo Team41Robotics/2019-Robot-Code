@@ -70,6 +70,10 @@ class Driving
 	double prevOffset, offsetIntegral;
 	double voltageL, voltageR;
 	double prevDistance;
+	double drive_multiplier;
+
+	bool assisted_pressed;
+	double v, omega;
 };
 
 enum GEAR { LOW=1, HIGH=2, STAY=0 };

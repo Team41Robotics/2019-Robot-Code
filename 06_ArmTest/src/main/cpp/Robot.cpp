@@ -94,9 +94,9 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
   // SmartDashboard::PutNumber("servo", -joy0->GetRawAxis(3));
-  //swivel->Set(-joy0->GetRawAxis(1)); //normalize
-  arm0->Set(kPercentOutput, -joy0->GetRawAxis(1));
-  arm1->Set(kPercentOutput, -joy0->GetRawAxis(1));
+  swivel->Set(-joy0->GetRawAxis(1)/2.0 + 0.5); //normalize from 0 to 1
+  // arm0->Set(kPercentOutput, -joy0->GetRawAxis(1));
+  // arm1->Set(kPercentOutput, -joy0->GetRawAxis(1));
   SmartDashboard::PutNumber("limit", liftTopLimit->Get());
 }
 

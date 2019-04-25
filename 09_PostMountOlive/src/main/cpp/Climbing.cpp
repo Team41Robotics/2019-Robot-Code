@@ -17,6 +17,7 @@ Climbing::Climbing(Driving *drive) {
     timer.Reset();
     timing = true;
     ultra = new AnalogInput(PORTS::ULTRASONIC);
+    pressureSensor = new AnalogInput(PORTS::PRESSURE_SENSOR);
     drv = drive;
 
     timer_started = false;
@@ -32,7 +33,21 @@ void Climbing::Extend(bool ext){
     }
 }
 
+void Climbing::PressureSense(){
+    // Read pressure sensor
+    double supply_voltage_normalized = 2.623290747 / (0.004 * 115 + 0.1);
+    double voltage = pressureSensor->GetVoltage();
+    SmartDashboard::PutNumber("Pressure Sensor Voltage", voltage);
+    double pressure = 250.0 * voltage / supply_voltage_normalized - 25;
+    // pressure = ((int)(pressure * 100)) / 100.0;
+    SmartDashboard::PutNumber("Pressure Sensor (PSI)", pressure);
+    if (pressure > 60){
+        SmartDashboard::PutBoolean("Pressure Above 60 PSI", true);
+    } else SmartDashboard::PutBoolean("Pressure Above 60 PSI", false);
+}
+
 void Climbing::ControllerMove(Joystick *buttonBoard){
+
     if (buttonBoard->GetPOV(0)/45 == 5){ // HAB 1 to 2 button
         SmartDashboard::PutNumber("time elapsed", timer.Get());
         SmartDashboard::PutNumber("ULTRASONIC", GetDistance());

@@ -54,7 +54,8 @@ namespace PORTS {
         CLIMB_SOL0_1 = 5,
         CLIMB_SOL1_0 = 6,
         CLIMB_SOL1_1 = 7,
-        ULTRASONIC = 0
+        ULTRASONIC = 0,
+        PRESSURE_SENSOR = 3
     };
 }
 

@@ -48,6 +48,9 @@ Driving::Driving(Arm *_arm) {
 	shiftUp = false; // Starts in low gear
 
 	prevOffset = 0;
+
+	drive_multiplier = 0.4;
+	assisted_pressed = false;
 }
 
 Driving::~Driving() {
@@ -73,25 +76,33 @@ void Driving::ControllerMove(Joystick *leftJoy, Joystick *rightJoy, Joystick *bu
 	if (buttonBoard->GetRawButton(BUTTONS::DRIVING_ASSIST)) {
 		AssistedDriving();
 		SmartDashboard::PutBoolean("send_nav_goal", true);
+		assisted_pressed = true;
 		return;
-	} else SmartDashboard::PutBoolean("send_nav_goal", false);
+	} else {
+		SmartDashboard::PutBoolean("send_nav_goal", false);
+		assisted_pressed = false;
+	}
 	if (buttonBoard->GetRawButton(BUTTONS::ASSIST_LITE)) {
 		AssistedDrivingLite();
 		SmartDashboard::PutBoolean("Assisted?", true);
 		return;
 	} 
 	else SmartDashboard::PutBoolean("Assisted?", false);
-    if (buttonBoard->GetPOV(0)/45 == 7){ // HAB 1 to 2 button
+    if (buttonBoard->GetPOV(0)/45 == 5){ // HAB 1 to 2 button
 		return;
 	}
 	// Tank drive
-	leftStick = -leftJoy->GetRawAxis(1);
-	rightStick = -rightJoy->GetRawAxis(1);
+	if(leftJoy->GetRawButton(BUTTONS::TOGGLE_SHIFT) && drive_multiplier < 1){
+		drive_multiplier += 0.01;
+	} else if (drive_multiplier > 0.4) drive_multiplier -= 0.01;
+	
+	leftStick = -leftJoy->GetRawAxis(1)*drive_multiplier; 
+	rightStick = -rightJoy->GetRawAxis(1)*drive_multiplier;
 	if (fabs(leftStick) < 0.04) leftStick = 0.0;
 	if (fabs(rightStick) < 0.04) rightStick = 0.0;
 	Drive(leftStick, rightStick, buttonBoard->GetRawButton(BUTTONS::DRIVER_OVERRIDE));
 	// Transmission
-	if (leftJoy->GetRawButton(BUTTONS::TOGGLE_SHIFT)) {
+	if (buttonBoard->GetRawButton(BUTTONS::TOGGLE_CLAW)) { // TOGGLE_CLAW button
 		if(!gearButtonPressed) {
 			shiftUp = !shiftUp;
 			gearButtonPressed = true;
@@ -102,7 +113,7 @@ void Driving::ControllerMove(Joystick *leftJoy, Joystick *rightJoy, Joystick *bu
 		gearButtonPressed = false;
 	}
 	if (buttonBoard->GetRawButton(BUTTONS::DRIVER_OVERRIDE)) {
-		if (buttonBoard->GetRawButton(BUTTONS::SHIFT_UP)) Shift(GEAR::HIGH);
+		if (buttonBoard->GetRawButton(BUTTONS::SHIFT_UP)) Shift(GEAR::HIGH); 
 		else if (buttonBoard->GetRawButton(BUTTONS::SHIFT_DOWN)) Shift(GEAR::LOW);
 	}
 }
@@ -390,13 +401,18 @@ void Driving::AssistedDrivingLite() {
 
 void Driving::AssistedDriving(){
 	// Source: Hadzic math
-	double x = SmartDashboard::GetNumber("base_link_y", 0); // From camera, intentionally swapped for ROS
-	double y = SmartDashboard::GetNumber("base_link_x", 0) - 10/39.37 + 0.04044;
-	double theta = SmartDashboard::GetNumber("Angle of Line", 0); // From lidar, angle for rotation
-	double d = sqrt(x*x + y*y); // Distance to hatch
-	double phi = atan(y/x); // Angle for translation
-	double R = d / 2.0 / cos(theta + phi); // Turn radius
-	double v = 0.5; // Linear speed is constant
-	double omega = v / R; // Angular speed is dependent on linear speed
-	VelocityPID(v, omega); // Go time!
+	double x = SmartDashboard::GetNumber("arm y", 0); // From camera, intentionally swapped for ROS
+	double y = SmartDashboard::GetNumber("arm x", 0);
+	if (!assisted_pressed){
+		double theta = SmartDashboard::GetNumber("Angle of Line", 0); // From lidar, angle for rotation
+		double d = sqrt(x*x + y*y); // Distance to hatch
+		double phi = atan(y/x); // Angle for translation
+		double R = d / 2.0 / cos(theta + phi); // Turn radius
+		v = 0.5; // Linear speed is constant
+		omega = v / R; // Angular speed is dependent on linear speed
+		assisted_pressed = true;
+		VelocityPID(v, omega); // Go time!
+	}
+	SmartDashboard::PutNumber("target lin vel:", v); 
+	SmartDashboard::PutNumber("target ang vel:", omega);
 }

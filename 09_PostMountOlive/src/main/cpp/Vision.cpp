@@ -11,12 +11,12 @@ Vision::~Vision(){
 }
 
 void Vision::Swivel(Joystick *buttonBoard){
-    if (true || buttonBoard->GetRawButton(BUTTONS::ASSIST_LITE)){
+    if (buttonBoard->GetRawButton(BUTTONS::ASSIST_LITE)){
         swivel->Set(88.5 / 180.0);
         return;
     }
     double angle = SmartDashboard::GetNumber("Angle of Line", 0);
-    double corrected = 90 - angle;
+    double corrected = 95.5 - angle;
     swivel->Set(corrected / 180.0); //normalize
 }
 
